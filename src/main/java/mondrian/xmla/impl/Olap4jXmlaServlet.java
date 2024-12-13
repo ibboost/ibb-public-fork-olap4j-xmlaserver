@@ -9,24 +9,29 @@
 */
 package mondrian.xmla.impl;
 
-import mondrian.xmla.XmlaHandler;
-import mondrian.xmla.XmlaRequest;
-
-import org.olap4j.xmla.server.impl.Util;
-
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.dbcp.DelegatingConnection;
-import org.apache.log4j.Logger;
-
-import org.olap4j.OlapConnection;
-import org.olap4j.OlapWrapper;
-
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.DelegatingConnection;
+import org.apache.log4j.Logger;
+import org.olap4j.OlapConnection;
+import org.olap4j.OlapWrapper;
+import org.olap4j.xmla.server.impl.Util;
+
+import mondrian.xmla.XmlaHandler;
+import mondrian.xmla.XmlaRequest;
 
 /**
  * XMLA servlet that gets its connections from an olap4j data source.
@@ -283,7 +288,7 @@ public class Olap4jXmlaServlet extends DefaultXmlaServlet {
                     bds.setUrl(olap4jDriverConnectionString);
                     bds.setPoolPreparedStatements(false);
                     bds.setMaxIdle(maxPerUserConnectionCount);
-                    bds.setMaxActive(maxPerUserConnectionCount);
+                    bds.setMaxTotal(maxPerUserConnectionCount);
                     bds.setMinEvictableIdleTimeMillis(
                         idleConnectionsCleanupTimeoutMs);
                     bds.setAccessToUnderlyingConnectionAllowed(true);

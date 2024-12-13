@@ -10,12 +10,22 @@
 */
 package org.olap4j.xmla.server.impl;
 
-import org.apache.commons.collections.Predicate;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Pattern;
+
+import org.apache.commons.collections4.Predicate;
 
 /**
  * Cut-down version of mondrian.olap.Util.
